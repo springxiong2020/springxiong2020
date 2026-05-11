@@ -5,12 +5,12 @@
 ## :bear: Me
 
 - :smile: Hello there, I’m `Spring-_-Bear`, a name that captures my lively spirit like the spring and unwavering determination like a bear.
-- :computer: I specialize in backend development and am skilled in frontend. My preferred languages include `C++`, `Go`, `Java`, and `Vue`.
-- :book: Beyond programming, I’m an avid reader, a poetry enthusiast, and a badminton player. Explore more info about me [here](https://springbear2020.github.io/).
+- :computer: I specialize in backend development and am skilled in frontend. My preferred languages include `Go`, `Java`, `C++`, and `Vue`.
+- :book: Beyond programming, I’m an avid reader, a poetry enthusiast, and a badminton player. Explore more info about me [here](https://springbear.cn/).
 
 ## :chart_with_upwards_trend: Stats
 
 <div align="center">
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="stats" height="200px" src="https://github-readme-stats.vercel.app/api?username=springbear2020&theme=vue&show_icons=true&include_all_commits=true"/></a>
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="languages" height="200px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=springbear2020&theme=vue&layout=compact&langs_count=8&hide=scss"/></a>
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="stats" height="200px" src="https://static.springbear.cn/github-stats/api?username=springbear2020&theme=vue&show_icons=true&include_all_commits=true"/></a>
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="languages" height="200px" src="https://static.springbear.cn/github-stats/api/top-langs/?username=springbear2020&theme=vue&layout=compact&langs_count=8&hide=scss"/></a>
 </div>
