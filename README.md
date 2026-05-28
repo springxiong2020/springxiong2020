@@ -11,6 +11,6 @@
 ## :chart_with_upwards_trend: Stats
 
 <div align="center">
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="stats" height="200px" src="https://static.springbear.cn/github-stats/api?username=springbear2020&theme=vue&show_icons=true&include_all_commits=true"/></a>
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="languages" height="200px" src="https://static.springbear.cn/github-stats/api/top-langs/?username=springbear2020&theme=vue&layout=compact&langs_count=8&hide=scss"/></a>
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="stats" height="200px" src="https://api.springbear.cn/github-stats/api?username=springbear2020&theme=vue&show_icons=true&include_all_commits=true"/></a>
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="languages" height="200px" src="https://api.springbear.cn/github-stats/api/top-langs/?username=springbear2020&theme=vue&layout=compact&langs_count=8&hide=scss"/></a>
 </div>
