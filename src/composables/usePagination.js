@@ -31,8 +31,6 @@ export const usePagination = (fetchApi, defaultPageSize) => {
 
       // 判断是否还有更多数据
       hasMore.value = list.value.length < data.total;
-    } catch (error) {
-      console.error("数据请求失败：", error);
     } finally {
       // 重置加载状态
       loading.value = false;

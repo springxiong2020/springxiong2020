@@ -1,27 +1,39 @@
 <template>
-  <InfiniteSection
+  <resource-list-page
+    title-id="blog-title"
     title="技术博客"
-    subtitle="路漫漫其修远兮，吾将上下而求索"
-    :api-fn="getMineBlogsList"
-    :page-size="pageSize"
-    grid-class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
-    empty-icon="fa-solid fa-code"
+    description="路漫漫其修远兮，吾将上下而求索"
+    label="博客"
+    unit="篇"
+    empty-text="暂无技术博客"
+    :fetch-page="getMineBlogsList"
   >
-    <template #skeleton>
-      <BlogSkeleton v-for="n in pageSize" :key="n" />
+    <template #notice>
+      <dictionary-error-notice :dictionaries="['blogCategory', 'blogTag']" label="分类或标签" />
     </template>
-
-    <template #content="{ list }">
-      <BlogCard v-for="item in list" :key="item.id" :blog="item" />
+    <template #loading>
+      <div>
+        <blog-skeleton v-for="n in 8" :key="n" />
+      </div>
     </template>
-  </InfiniteSection>
+    <template #default="{ items: articles }">
+      <ul
+        class="divide-y divide-slate-200/80 border-y border-slate-200/80 dark:divide-slate-800 dark:border-slate-800"
+      >
+        <li v-for="article in articles" :key="article.id">
+          <blog-entry :article="article" />
+        </li>
+      </ul>
+    </template>
+  </resource-list-page>
 </template>
 
 <script setup>
 import { getMineBlogsList } from "@/api/mine.js";
-import InfiniteSection from "@/components/InfiniteSection.vue";
-import BlogCard from "@/components/card/BlogCard.vue";
-import BlogSkeleton from "@/components/skeleton/BlogSkeleton.vue";
+import ResourceListPage from "@/components/ResourceListPage.vue";
+import BlogSkeleton from "./BlogSkeleton.vue";
+import BlogEntry from "./BlogEntry.vue";
+import DictionaryErrorNotice from "@/components/notice/DictionaryErrorNotice.vue";
 
-const pageSize = 4 * 3;
+defineOptions({ name: "BlogPage" });
 </script>

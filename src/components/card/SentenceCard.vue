@@ -41,20 +41,18 @@
           >
             {{ dictStore.sentenceCategory[String(sentence.categoryId)] }}
           </span>
-          <span
-            class="inline-flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500"
-          >
+          <span class="inline-flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
             <i class="fa-regular fa-clock"></i>
             {{ formatWithoutSeconds(sentence.createdAt) }}
           </span>
         </div>
 
         <a
+          class="inline-flex items-center gap-1.5 text-xs text-slate-400 transition-colors hover:text-sky-500 dark:hover:text-sky-400"
           :href="sentence.link"
           target="_blank"
           rel="noopener noreferrer"
           @click.stop
-          class="inline-flex items-center gap-1.5 text-xs text-slate-400 transition-colors hover:text-sky-500 dark:hover:text-sky-400"
         >
           <i class="fa-solid fa-magnifying-glass"></i>
           搜索出处
@@ -68,8 +66,6 @@
 import { formatWithoutSeconds } from "@/utils/date.js";
 import { useDictStore } from "@/stores/dictStore";
 
-const dictStore = useDictStore();
-
 defineProps({
   sentence: {
     type: Object,
@@ -78,4 +74,6 @@ defineProps({
 });
 
 defineEmits(["click"]);
+
+const dictStore = useDictStore();
 </script>

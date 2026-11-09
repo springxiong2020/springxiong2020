@@ -9,7 +9,6 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
   config.headers = {
     "Content-Type": "application/json",
-    "X-Open-Token": import.meta.env.VITE_APP_OPEN_TOKEN,
   };
   return config;
 });

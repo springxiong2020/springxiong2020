@@ -1,27 +1,32 @@
 <template>
-  <InfiniteSection
+  <resource-list-page
+    title-id="book-title"
     title="读书札记"
-    subtitle="粗缯大布裹生涯，腹有诗书气自华"
-    :api-fn="getMineBooksList"
-    :page-size="pageSize"
-    grid-class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    empty-icon="fa-solid fa-book-open"
+    description="粗缯大布裹生涯，腹有诗书气自华"
+    label="书籍"
+    unit="本"
+    empty-text="暂无阅读记录"
+    empty-class="rounded-2xl border border-dashed border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-900"
+    :fetch-page="getMineBooksList"
   >
-    <template #skeleton>
-      <BookSkeleton v-for="n in pageSize" :key="n" />
+    <template #loading>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <book-skeleton v-for="n in 8" :key="n" />
+      </div>
     </template>
-
-    <template #content="{ list }">
-      <BookCard v-for="item in list" :key="item.id" :book="item" />
+    <template #default="{ items: books }">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <book-entry v-for="book in books" :key="book.id" :book="book" />
+      </div>
     </template>
-  </InfiniteSection>
+  </resource-list-page>
 </template>
 
 <script setup>
 import { getMineBooksList } from "@/api/mine.js";
-import InfiniteSection from "@/components/InfiniteSection.vue";
-import BookCard from "@/components/card/BookCard.vue";
-import BookSkeleton from "@/components/skeleton/BookSkeleton.vue";
+import ResourceListPage from "@/components/ResourceListPage.vue";
+import BookSkeleton from "./BookSkeleton.vue";
+import BookEntry from "./BookEntry.vue";
 
-const pageSize = 4 * 4;
+defineOptions({ name: "BookPage" });
 </script>

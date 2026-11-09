@@ -6,9 +6,7 @@
     class="group block overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 backface-hidden transform-gpu [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
   >
     <!-- Cover -->
-    <div
-      class="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-slate-800"
-    >
+    <div class="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-slate-800">
       <img
         :src="book.cover"
         :alt="book.title"
@@ -24,7 +22,7 @@
         <div
           class="inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-semibold backdrop-blur bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
         >
-          <i class="fa-solid fa-book-open mr-1"></i>
+          <i class="mr-1" :class="routeIcon.book"></i>
           已读 {{ formatReadMinute(book.readMinute) }}
         </div>
       </div>
@@ -33,9 +31,7 @@
     <!-- Content -->
     <div class="space-y-4 p-5">
       <div>
-        <h3
-          class="line-clamp-1 text-lg font-bold text-slate-900 dark:text-white"
-        >
+        <h3 class="line-clamp-1 text-lg font-bold text-slate-900 dark:text-white">
           {{ book.title }}
         </h3>
 
@@ -48,9 +44,7 @@
       <blockquote
         class="relative rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-600 dark:bg-slate-800/60 dark:text-slate-300"
       >
-        <i
-          class="fa-solid fa-quote-left absolute left-3 top-3 text-xs opacity-20"
-        ></i>
+        <i class="fa-solid fa-quote-left absolute left-3 top-3 text-xs opacity-20"></i>
 
         <p class="pl-4 line-clamp-3">
           {{ book.iconicQuote }}
@@ -70,6 +64,7 @@
 
 <script setup>
 import { formatDate } from "@/utils/date.js";
+import { routeIcon } from "@/config";
 
 defineProps({
   book: {

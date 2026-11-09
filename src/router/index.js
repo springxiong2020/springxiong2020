@@ -1,50 +1,58 @@
+import { nextTick } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "@/views/home/index.vue";
+import HomePage from "@/views/home/index.vue";
+import NotFoundPage from "@/views/error/404.vue";
+import { routeIcon } from "@/config";
 
 const menus = [
   {
     path: "/blogs",
-    name: "Blog",
+    name: "BlogPage",
     component: () => import("@/views/blog/index.vue"),
     meta: {
+      keepAlive: true,
       title: "技术博客",
-      icon: "fa-solid fa-code",
+      icon: routeIcon.blog,
     },
   },
   {
     path: "/projects",
-    name: "Project",
+    name: "ProjectPage",
     component: () => import("@/views/project/index.vue"),
     meta: {
+      keepAlive: true,
       title: "开源项目",
-      icon: "fa-brands fa-github",
+      icon: routeIcon.project,
     },
   },
   {
     path: "/books",
-    name: "Book",
+    name: "BookPage",
     component: () => import("@/views/book/index.vue"),
     meta: {
+      keepAlive: true,
       title: "读书札记",
-      icon: "fa-solid fa-book-open",
+      icon: routeIcon.book,
     },
   },
   {
     path: "/sentences",
-    name: "Sentence",
+    name: "SentencePage",
     component: () => import("@/views/sentence/index.vue"),
     meta: {
+      keepAlive: true,
       title: "三五七言",
-      icon: "fa-solid fa-feather",
+      icon: routeIcon.sentence,
     },
   },
   {
     path: "/archives",
-    name: "Archive",
+    name: "ArchivePage",
     component: () => import("@/views/archive/index.vue"),
     meta: {
+      keepAlive: true,
       title: "电子文藏",
-      icon: "fa-solid fa-archive",
+      icon: routeIcon.archive,
     },
   },
 ];
@@ -52,28 +60,46 @@ const menus = [
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "HomePage",
+    component: HomePage,
+    meta: { keepAlive: true },
   },
+
   ...menus,
+
   {
     path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: () => import("@/views/error/404.vue"),
+    name: "NotFoundPage",
+    component: NotFoundPage,
+    meta: { keepAlive: true },
   },
 ];
 
+const listPositions = new Map();
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { top: 0 };
-    }
+  async scrollBehavior(to, from, savedPosition) {
+    // 等待缓存页面重新插入 DOM，列表高度恢复后再设置滚动位置。
+    await nextTick();
+    const position = savedPosition ||
+      (to.meta.keepAlive && listPositions.get(to.path)) || { left: 0, top: 0 };
+    return { ...position, behavior: "instant" };
   },
 });
 
+router.beforeEach((to, from) => {
+  if (from.meta.keepAlive) {
+    listPositions.set(from.path, { left: window.scrollX, top: window.scrollY });
+  }
+});
+
+router.afterEach((to, _from, failure) => {
+  if (failure) return;
+  const websiteName = import.meta.env.VITE_APP_TITLE;
+  document.title =
+    to.path !== "/" && to.meta.title ? `${to.meta.title} - ${websiteName}` : websiteName;
+});
+
 export default router;
-export { menus };
+export { menus, routes };

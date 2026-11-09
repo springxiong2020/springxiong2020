@@ -20,16 +20,12 @@
       <i
         class="relative z-10 text-lg transition-all duration-500"
         :class="
-          isDark
-            ? 'fa-solid fa-sun rotate-180 text-amber-400'
-            : 'fa-solid fa-moon text-slate-700'
+          isDark ? 'fa-solid fa-sun rotate-180 text-amber-400' : 'fa-solid fa-moon text-slate-700'
         "
       ></i>
 
       <!-- Ring -->
-      <div
-        class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/10"
-      />
+      <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/10" />
     </button>
   </div>
 </template>
@@ -88,13 +84,9 @@ const loadPosition = () => {
 
   if (!saved) return;
 
-  try {
-    const parsed = JSON.parse(saved);
+  const parsed = JSON.parse(saved);
 
-    position.value = clampPosition(parsed.x, parsed.y);
-  } catch (e) {
-    console.error(e);
-  }
+  position.value = clampPosition(parsed.x, parsed.y);
 };
 
 const startDrag = (e) => {
@@ -145,8 +137,7 @@ const stopDrag = () => {
   // 自动吸边
   const middle = window.innerWidth / 2;
 
-  position.value.x =
-    position.value.x + width / 2 < middle ? 8 : window.innerWidth - width - 8;
+  position.value.x = position.value.x + width / 2 < middle ? 8 : window.innerWidth - width - 8;
 
   savePosition();
 

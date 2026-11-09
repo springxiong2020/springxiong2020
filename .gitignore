@@ -1,4 +1,84 @@
+# ==============================
+# Dependencies（依赖）
+# ==============================
 node_modules/
+
+# ==============================
+# Build（构建产物）
+# ==============================
 dist/
+dist-ssr/
+*.local
+
+# ==============================
+# Logs（日志）
+# ==============================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==============================
+# Environment（环境变量）
+# ==============================
+.env.local
+.env.*.local
+
+# 按需启用：包含敏感信息的环境配置
+# .env
+# .env.development
+# .env.production
+
+# ==============================
+# IDE / Editor（编辑器）
+# ==============================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==============================
+# OS（操作系统文件）
+# ==============================
 .DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==============================
+# TypeScript（缓存）
+# ==============================
 *.tsbuildinfo
+
+# ==============================
+# Testing（测试及覆盖率）
+# ==============================
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# ==============================
+# Cache（缓存）
+# ==============================
+.cache/
+.temp/
+.tmp/
+.eslintcache
+.vite/
+
+# ==============================
+# Temporary Files（临时文件）
+# ==============================
+*.tmp
+*.temp
+*.bak
+*.orig

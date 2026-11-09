@@ -6,9 +6,7 @@
     class="group block overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 backface-hidden transform-gpu [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
   >
     <!-- Cover -->
-    <div
-      class="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800"
-    >
+    <div class="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
       <img
         :src="project.cover"
         :alt="project.title"
@@ -25,13 +23,13 @@
         <div
           class="flex h-10 w-10 items-center justify-center rounded-2xl bg-black/40 text-white backdrop-blur"
         >
-          <i class="fa-brands fa-github text-lg"></i>
+          <i class="text-lg" :class="routeIcon.project"></i>
         </div>
       </div>
 
       <!-- Bottom -->
       <div class="absolute bottom-4 left-4 right-4">
-        <ProjectStatus :finish-date="project.finishDate" />
+        <project-status :finish-date="project.finishDate" />
       </div>
     </div>
 
@@ -39,9 +37,7 @@
     <div class="space-y-5 p-6">
       <!-- Header -->
       <div>
-        <div
-          class="mb-2 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
-        >
+        <div class="mb-2 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <i class="fa-solid fa-cube"></i>
 
           {{ project.name }}
@@ -55,35 +51,27 @@
       </div>
 
       <!-- Description -->
-      <p
-        class="line-clamp-3 min-h-[72px] text-sm leading-7 text-slate-600 dark:text-slate-300"
-      >
+      <p class="line-clamp-3 min-h-[72px] text-sm leading-7 text-slate-600 dark:text-slate-300">
         {{ project.description }}
       </p>
 
       <!-- Tech -->
-      <ProjectTech :technology="project.technology" />
+      <project-tech :technology="project.technology" />
 
       <!-- Footer -->
       <div
         class="flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800"
       >
-        <div
-          class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
-        >
+        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <i class="fa-regular fa-calendar"></i>
 
           {{ formatDate(project.startDate) }}
         </div>
 
-        <div
-          class="flex items-center gap-2 text-sm font-medium text-sky-600 dark:text-sky-400"
-        >
+        <div class="flex items-center gap-2 text-sm font-medium text-sky-600 dark:text-sky-400">
           查看项目
 
-          <i
-            class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"
-          ></i>
+          <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
         </div>
       </div>
     </div>
@@ -92,8 +80,9 @@
 
 <script setup>
 import { formatDate } from "@/utils/date.js";
-import ProjectStatus from "@/components/ProjectStatus.vue";
+import ProjectStatus from "./ProjectStatus.vue";
 import ProjectTech from "@/components/ProjectTech.vue";
+import { routeIcon } from "@/config";
 
 defineProps({
   project: {

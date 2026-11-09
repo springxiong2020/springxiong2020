@@ -1,27 +1,32 @@
 <template>
-  <InfiniteSection
+  <resource-list-page
+    title-id="archive-title"
     title="电子文藏"
-    subtitle="问渠那得清如许，为有源头活水来"
-    :api-fn="getMineArchivesList"
-    :page-size="pageSize"
-    grid-class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    empty-icon="fa-solid fa-archive"
+    description="问渠那得清如许，为有源头活水来"
+    label="文藏"
+    unit="项"
+    empty-text="暂无电子文藏"
+    empty-class="rounded-xl border border-dashed border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-900"
+    :fetch-page="getMineArchivesList"
   >
-    <template #skeleton>
-      <ArchiveSkeleton v-for="n in pageSize" :key="n" />
+    <template #loading>
+      <div class="space-y-4">
+        <archive-skeleton v-for="n in 8" :key="n" />
+      </div>
     </template>
-
-    <template #content="{ list }">
-      <ArchiveCard v-for="item in list" :key="item.id" :archive="item" />
+    <template #default="{ items: archives }">
+      <div class="space-y-4">
+        <archive-entry v-for="archive in archives" :key="archive.id" :archive="archive" />
+      </div>
     </template>
-  </InfiniteSection>
+  </resource-list-page>
 </template>
 
 <script setup>
 import { getMineArchivesList } from "@/api/mine.js";
-import InfiniteSection from "@/components/InfiniteSection.vue";
-import ArchiveCard from "@/components/card/ArchiveCard.vue";
-import ArchiveSkeleton from "@/components/skeleton/ArchiveSkeleton.vue";
+import ResourceListPage from "@/components/ResourceListPage.vue";
+import ArchiveSkeleton from "./ArchiveSkeleton.vue";
+import ArchiveEntry from "./ArchiveEntry.vue";
 
-const pageSize = 4 * 4;
+defineOptions({ name: "ArchivePage" });
 </script>

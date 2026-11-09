@@ -6,9 +6,7 @@
     class="group block overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 backface-hidden transform-gpu [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
   >
     <!-- Cover -->
-    <div
-      class="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800"
-    >
+    <div class="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
       <img
         :src="blog.cover"
         :alt="blog.title"
@@ -46,15 +44,13 @@
         {{ blog.title }}
       </h3>
 
-      <ProjectTech :technology="dictStore.blogTag[String(blog.tagId)]" />
+      <project-tech :technology="dictStore.blogTag[String(blog.tagId)]" />
 
       <!-- Footer -->
       <div
         class="flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800"
       >
-        <div
-          class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
-        >
+        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
           阅读文章
         </div>
@@ -68,12 +64,11 @@ import { formatWithoutSeconds } from "@/utils/date.js";
 import ProjectTech from "@/components/ProjectTech.vue";
 import { useDictStore } from "@/stores/dictStore";
 
-const dictStore = useDictStore();
-
 defineProps({
   blog: {
     type: Object,
     required: true,
   },
 });
+const dictStore = useDictStore();
 </script>

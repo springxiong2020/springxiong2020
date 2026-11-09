@@ -3,9 +3,7 @@
     <div class="mb-10 flex items-end justify-between">
       <!-- Title -->
       <div>
-        <h2
-          class="text-3xl font-black tracking-tight text-slate-900 dark:text-white"
-        >
+        <h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
           {{ title }}
         </h2>
         <p class="mt-3 text-slate-500 dark:text-slate-400">
@@ -38,18 +36,13 @@
           'text-5xl text-slate-300 dark:text-slate-700/50 animate-[float_4s_ease-in-out_infinite]',
         ]"
       ></i>
-      <h3
-        class="mt-6 text-sm font-medium text-slate-400 dark:text-slate-500 tracking-wider"
-      >
+      <h3 class="mt-6 text-sm font-medium text-slate-400 dark:text-slate-500 tracking-wider">
         空空如也~
       </h3>
     </div>
 
     <!-- Infinite Scroll Anchor & Status Indicator -->
-    <div
-      ref="loadMoreRef"
-      class="mt-14 flex justify-center py-6 border-t border-transparent"
-    >
+    <div ref="loadMoreRef" class="mt-14 flex justify-center py-6 border-t border-transparent">
       <!-- Loading More Status -->
       <div
         v-if="loadingMore || (loading && list.length > 0)"
@@ -83,7 +76,7 @@ const props = defineProps({
     type: String,
     default: "grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3",
   },
-  emptyIcon: { type: String, default: "fa-solid fa-code" },
+  emptyIcon: { type: String, default: "fa-solid fa-question" },
 });
 
 const { list, total, loading, loadingMore, hasMore, loadMore } = usePagination(
@@ -99,12 +92,7 @@ onMounted(() => {
   observer = new IntersectionObserver(
     ([entry]) => {
       // 当锚点可见，且满足加载条件时，自动触发下一页
-      if (
-        entry.isIntersecting &&
-        hasMore.value &&
-        !loadingMore.value &&
-        !loading.value
-      ) {
+      if (entry.isIntersecting && hasMore.value && !loadingMore.value && !loading.value) {
         loadMore();
       }
     },

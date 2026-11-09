@@ -1,113 +1,106 @@
 <template>
-  <transition name="modal">
-    <div
-      v-if="visible"
-      class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
-      @click="close"
-    >
+  <teleport to="body">
+    <transition name="modal">
       <div
-        class="modal-card relative flex max-h-[calc(100vh-2rem)] w-full max-w-xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-white shadow-2xl dark:bg-slate-950"
-        @click.stop
+        v-if="visible"
+        class="fixed inset-0 z-[99999] flex items-center justify-center bg-slate-950/50 p-3 backdrop-blur-sm sm:p-6"
+        @click.self="close"
       >
-        <!-- Sticky header: top bar + close button -->
-        <div class="shrink-0">
-          <!-- Decorative top bar -->
+        <div
+          ref="dialogRef"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="`诗词详情：${sentence.title || '无题'}`"
+          tabindex="-1"
+          class="modal-card relative flex max-h-[calc(100dvh-1.5rem)] w-full max-w-xl flex-col overflow-hidden rounded-[1.25rem] border border-slate-200/80 bg-white shadow-[0_24px_80px_-20px_rgba(15,23,42,0.45)] sm:max-h-[calc(100dvh-3rem)] dark:border-slate-800 dark:bg-slate-950"
+          @click.stop
+        >
+          <div class="flex shrink-0 justify-end px-3 pt-3 sm:px-4 sm:pt-4">
+            <button
+              type="button"
+              aria-label="关闭诗词详情"
+              class="flex size-11 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              @click="close"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
+
           <div
-            class="h-1.5 w-full bg-gradient-to-r from-sky-400 via-purple-400 to-pink-400"
-          ></div>
-
-          <!-- Close button -->
-          <button
-            class="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-slate-400 shadow-sm backdrop-blur transition-colors hover:bg-white hover:text-slate-600 dark:bg-slate-900/80 dark:text-slate-500 dark:hover:bg-slate-900 dark:hover:text-slate-300"
-            @click="close"
+            class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-8 sm:px-10 sm:pb-10"
           >
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
+            <dictionary-error-notice :dictionaries="['sentenceCategory']" />
 
-        <!-- Scrollable content -->
-        <div class="flex-1 overflow-y-auto px-8 pb-10 pt-8">
-          <!-- Decorative opening quote -->
-          <div class="mb-4 text-center">
-            <span
-              class="select-none text-[100px] leading-none font-serif text-sky-100 dark:text-sky-900/30"
-              >&ldquo;</span
+            <header
+              class="sentence-heading relative border-b border-slate-200/80 pb-7 dark:border-slate-800"
             >
-          </div>
-
-          <!-- Quote text -->
-          <blockquote class="mb-8 text-center">
-            <p
-              class="whitespace-pre-line text-xl leading-relaxed tracking-wide text-slate-700 dark:text-slate-200"
-            >
-              {{ sentence.content }}
-            </p>
-          </blockquote>
-
-          <!-- Divider -->
-          <div class="mb-8 flex items-center justify-center gap-3">
-            <div class="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
-            <span class="text-xs text-slate-300 dark:text-slate-700">
-              <i class="fa-solid fa-feather"></i>
-            </span>
-            <div class="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
-          </div>
-
-          <!-- Source info -->
-          <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
-            <div class="space-y-3">
-              <!-- Title -->
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-book text-xs text-sky-400"></i>
-                <span
-                  class="text-lg font-semibold text-slate-800 dark:text-slate-100"
-                >
-                  《{{ sentence.title }}》
-                </span>
-              </div>
-
-              <!-- Author & Dynasty -->
-              <div
-                class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
+              <h2
+                class="sentence-serif break-words text-[1.75rem] font-semibold leading-relaxed tracking-[0.04em] text-slate-900 sm:text-[2rem] dark:text-slate-100"
               >
-                <i class="fa-solid fa-user-pen"></i>
-                <span>{{ sentence.dynasty }} · {{ sentence.author }}</span>
-              </div>
-
-              <!-- Category badge -->
-              <div class="flex items-center gap-2">
+                {{ sentence.title || "无题" }}
+              </h2>
+              <div
+                v-if="sentence.dynasty || sentence.author || categoryName"
+                class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm leading-6 text-slate-500 dark:text-slate-400"
+              >
+                <div v-if="sentence.dynasty || sentence.author" class="flex flex-wrap gap-x-3">
+                  <span v-if="sentence.dynasty">{{ sentence.dynasty }}</span>
+                  <span v-if="sentence.author">{{ sentence.author }}</span>
+                </div>
                 <span
-                  class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-600 dark:bg-sky-900/30 dark:text-sky-400"
+                  v-if="categoryName"
+                  class="rounded border border-blue-200/80 bg-blue-50 px-2 py-0.5 text-xs tracking-wider text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
+                  >{{ categoryName }}</span
                 >
-                  {{ dictStore.sentenceCategory[String(sentence.categoryId)] }}
-                </span>
               </div>
-            </div>
+            </header>
+
+            <blockquote class="my-9 sm:my-10">
+              <p
+                class="sentence-serif whitespace-pre-wrap break-words text-lg leading-[2.05] tracking-[0.025em] text-slate-700 sm:text-xl dark:text-slate-200"
+              >
+                {{ sentence.content }}
+              </p>
+            </blockquote>
+
+            <p
+              v-if="collectedDate"
+              class="flex items-center gap-3 text-xs leading-5 text-slate-500 dark:text-slate-400"
+            >
+              <span class="h-px w-5 bg-slate-300 dark:bg-slate-700" aria-hidden="true"></span>
+              收录于 <time :datetime="collectedDate">{{ collectedDate }}</time>
+            </p>
           </div>
 
-          <!-- External link -->
-          <div class="mt-6 text-center">
+          <footer
+            class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-slate-200/70 bg-slate-50/80 px-6 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-10 dark:border-slate-800 dark:bg-slate-900/50"
+          >
+            <copy-original-button :text="sentence.content || ''" />
+
             <a
+              v-if="sentence.link"
               :href="sentence.link"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-full bg-sky-50 px-5 py-2.5 text-sm font-medium text-sky-600 transition-colors hover:bg-sky-100 dark:bg-sky-900/20 dark:text-sky-400 dark:hover:bg-sky-900/40"
+              class="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-blue-700 underline-offset-4 transition-colors hover:bg-blue-50 hover:underline dark:text-blue-300 dark:hover:bg-blue-950"
             >
-              <i class="fa-solid fa-magnifying-glass"></i>
               搜索出处
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs" aria-hidden="true"></i>
             </a>
-          </div>
+          </footer>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </teleport>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, watch } from "vue";
+import { computed, ref, toRef } from "vue";
+import DictionaryErrorNotice from "@/components/notice/DictionaryErrorNotice.vue";
+import CopyOriginalButton from "@/components/CopyOriginalButton.vue";
+import { useModalFocus } from "@/composables/useModalFocus";
 import { useDictStore } from "@/stores/dictStore";
-
-const dictStore = useDictStore();
+import { formatWithoutSeconds } from "@/utils/date";
 
 const props = defineProps({
   visible: {
@@ -119,35 +112,40 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 const emit = defineEmits(["close"]);
+
+const dictStore = useDictStore();
+const categoryName = computed(
+  () => dictStore.sentenceCategory[String(props.sentence.categoryId)] || "",
+);
+
+const collectedDate = computed(() => formatWithoutSeconds(props.sentence.createdAt));
 
 const close = () => emit("close");
 
-const handleKeydown = (e) => {
-  if (!props.visible) return;
-  if (e.key === "Escape") close();
-};
-
-// Lock body scroll when modal is open
-watch(
-  () => props.visible,
-  (v) => {
-    document.body.style.overflow = v ? "hidden" : "";
-  },
-);
-
-onMounted(() => {
-  window.addEventListener("keydown", handleKeydown);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeydown);
-  document.body.style.overflow = "";
-});
+const dialogRef = ref();
+useModalFocus(toRef(props, "visible"), dialogRef, close);
 </script>
 
 <style scoped>
+.sentence-serif {
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+}
+
+.sentence-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background: #2563eb;
+}
+
+:global(.dark) .sentence-heading::after {
+  background: #60a5fa;
+}
+
 .modal-enter-active {
   transition: opacity 0.2s ease;
 }
@@ -163,16 +161,18 @@ onUnmounted(() => {
 
 .modal-enter-active .modal-card,
 .modal-leave-active .modal-card {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 
 .modal-enter-from .modal-card {
   opacity: 0;
-  transform: scale(0.92) translateY(24px);
+  transform: scale(0.98) translateY(8px);
 }
 
 .modal-leave-to .modal-card {
   opacity: 0;
-  transform: scale(0.92) translateY(24px);
+  transform: scale(0.98) translateY(8px);
 }
 </style>

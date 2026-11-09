@@ -1,0 +1,85 @@
+/* Homepage palette: blue for actions, wheat for books, celadon for poetry. */
+.home-page {
+  --home-muted: #526176;
+  --home-accent: #2454b8;
+  --home-title-gradient: linear-gradient(105deg, #2454b8 0%, #286653 100%);
+  --home-line: #dce3eb;
+  --home-cover: #f0f3f7;
+  --home-book: #faf5e9;
+  --home-poetry: #edf5f1;
+}
+
+.dark .home-page {
+  --home-muted: #b0bdce;
+  --home-accent: #a8c7ff;
+  --home-title-gradient: linear-gradient(105deg, #a8c7ff 0%, #9ccdbb 100%);
+  --home-line: #344256;
+  --home-cover: #202c3d;
+  --home-book: #29271f;
+  --home-poetry: #1c2d2a;
+}
+
+.home-page .home-muted {
+  color: var(--home-muted);
+}
+
+.home-page .home-section-link {
+  color: var(--home-accent);
+}
+
+.home-page .home-focus-frame {
+  background-color: var(--home-cover);
+}
+
+.home-page .home-project-card {
+  border-color: var(--home-line);
+}
+
+.home-page .home-project-card:hover {
+  border-color: var(--home-accent);
+}
+
+.home-page .home-project-cover {
+  background-color: var(--home-cover);
+}
+
+.home-page .home-project-external {
+  color: var(--home-muted);
+}
+
+.home-page .home-tech {
+  color: var(--home-muted);
+  background-color: var(--home-cover);
+}
+
+.home-page .home-reading {
+  border: 1px solid var(--home-line);
+}
+
+.home-page .home-reading-book {
+  background-color: var(--home-book);
+  --home-accent: #805b1b;
+}
+
+.home-page .home-reading-sentence {
+  background-color: var(--home-poetry);
+  --home-accent: #286653;
+}
+
+.dark .home-page .home-reading-book {
+  --home-accent: #e1c387;
+}
+
+.dark .home-page .home-reading-sentence {
+  --home-accent: #9ccdbb;
+}
+
+.home-page .home-reading-mark {
+  color: var(--home-accent);
+  opacity: 0.2;
+}
+
+.home-page .home-reading a,
+.home-page .home-reading button {
+  color: var(--home-accent);
+}

@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "PingFang SC",
+      "Microsoft YaHei",
+      sans-serif;
+  }
+
+  :where(a, button, input, select, textarea, [tabindex="0"]):focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-blue-600 dark:outline-blue-300;
+  }
+
+  :where(a, button, input, select, textarea) {
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only;
+  }
+
+  .skip-link:focus {
+    @apply not-sr-only fixed left-4 top-4 z-[100000] rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -14,8 +48,29 @@ body {
   scrollbar-width: thin;
 }
 
-@media (max-width: 640px) {
-  .animate-float {
-    animation: none;
+@media (prefers-reduced-motion: reduce) {
+  html,
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* 只移除过渡阶段的运动，保留布局所需的居中、定位变换。 */
+  .search-enter-from,
+  .search-leave-to,
+  .modal-enter-from .modal-card,
+  .modal-leave-to .modal-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .modal-enter-from,
+  .modal-leave-to,
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 1 !important;
   }
 }

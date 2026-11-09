@@ -2,10 +2,81 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/springxiong.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 主题初始化：避免页面首次渲染时闪烁 -->
+    <script>
+      (() => {
+        let theme = "system";
+
+        try {
+          const storedTheme = localStorage.getItem("theme");
+          if (["light", "dark", "system"].includes(storedTheme)) {
+            theme = storedTheme;
+          }
+        } catch {
+          // localStorage 不可用时使用系统主题
+        }
+
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const isDark = theme === "dark" || (theme === "system" && systemDark);
+        const root = document.documentElement;
+
+        root.classList.toggle("dark", isDark);
+        root.style.colorScheme = isDark ? "dark" : "light";
+      })();
+    </script>
+
+    <!-- 网站图标 -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- 基础 SEO -->
     <title>%VITE_APP_TITLE%</title>
+    <meta
+      name="description"
+      content="春天熊 SpringXiong 的个人网站：分享 AI、Go、Java 与 Vue 开发实践、开源项目、技术博客、读书札记、诗词摘录与电子文藏。代码构建世界，文字安放灵魂。"
+    />
+    <link rel="canonical" href="https://springxiong.cn/" />
+
+    <!-- 浏览器主题颜色 -->
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="%VITE_APP_TITLE%" />
+    <meta property="og:title" content="%VITE_APP_TITLE%" />
+    <meta
+      property="og:description"
+      content="春天熊 SpringXiong 的个人网站：分享 AI、Go、Java 与 Vue 开发实践、开源项目、技术博客、读书札记、诗词摘录与电子文藏。代码构建世界，文字安放灵魂。"
+    />
+    <meta property="og:url" content="https://springxiong.cn/" />
+    <meta property="og:image" content="%VITE_APP_LOGO_URL%" />
+    <meta property="og:image:alt" content="春天熊头像" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="%VITE_APP_TITLE%" />
+    <meta
+      name="twitter:description"
+      content="分享技术实践、开源项目、读书札记与文字收藏。代码构建世界，文字安放灵魂。"
+    />
+    <meta name="twitter:image" content="%VITE_APP_LOGO_URL%" />
+
+    <!-- 个人信息结构化数据 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "春天熊",
+        "alternateName": "SpringXiong",
+        "url": "https://springxiong.cn/",
+        "image": "%VITE_APP_LOGO_URL%"
+      }
+    </script>
   </head>
+
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>

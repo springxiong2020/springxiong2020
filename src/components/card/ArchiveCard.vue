@@ -19,9 +19,7 @@
       </h3>
 
       <!-- Description -->
-      <p
-        class="line-clamp-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400"
-      >
+      <p class="line-clamp-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
         {{ archive.description }}
       </p>
 

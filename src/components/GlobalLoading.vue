@@ -2,18 +2,16 @@
   <transition name="fade">
     <div
       v-if="isLoading"
-      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-50 transition-colors duration-500 dark:bg-[#050505]"
+      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-50 transition-colors duration-150 dark:bg-[#050505]"
     >
       <!-- Background Ambient Glow -->
       <div
         class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
       >
         <div
-          class="absolute h-[300px] w-[300px] rounded-full bg-sky-400/10 blur-[80px] dark:bg-sky-500/10"
+          class="absolute h-[300px] w-[300px] rounded-full bg-blue-400/10 blur-[80px] dark:bg-blue-500/10"
         />
-        <div
-          class="noise absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
-        />
+        <div class="noise absolute inset-0 opacity-[0.015] dark:opacity-[0.03]" />
       </div>
 
       <!-- Loading Core -->
@@ -27,12 +25,12 @@
 
           <!-- Animated Gradient Ring -->
           <div
-            class="absolute inset-0 rounded-full border-[3px] border-transparent border-r-sky-500 border-t-indigo-500 animate-[spin_1.5s_linear_infinite]"
+            class="absolute inset-0 rounded-full border-[3px] border-transparent border-r-blue-500 border-t-blue-500 animate-[spin_1.5s_linear_infinite]"
           />
 
           <!-- Inner Glow Ring -->
           <div
-            class="absolute inset-2 rounded-full border-2 border-transparent border-l-fuchsia-500 border-b-sky-400 opacity-50 animate-[spin_2s_linear_infinite_reverse]"
+            class="absolute inset-2 rounded-full border-2 border-transparent border-l-blue-300 border-b-blue-400 opacity-50 animate-[spin_2s_linear_infinite_reverse]"
           />
 
           <!-- Center Icon -->
@@ -41,12 +39,12 @@
 
         <!-- Terminal Text -->
         <div class="flex items-center gap-2 font-mono text-sm tracking-wider">
-          <span class="text-indigo-500 dark:text-indigo-400">➜</span>
-          <span class="text-sky-500 dark:text-sky-400">~</span>
+          <span class="text-blue-600 dark:text-blue-300">➜</span>
+          <span class="text-blue-500 dark:text-blue-400">~</span>
           <span class="text-slate-600 dark:text-slate-400">
             {{ text }}
           </span>
-          <span class="text-sky-500 animate-pulse">_</span>
+          <span class="text-blue-500 animate-pulse">_</span>
         </div>
       </div>
     </div>
@@ -61,7 +59,7 @@ defineProps({
   },
   text: {
     type: String,
-    default: "Booting matrix system...",
+    default: "Booting matrix system…",
   },
 });
 </script>
@@ -70,21 +68,17 @@ defineProps({
 /* 优雅的淡入淡出过渡 */
 .fade-enter-active,
 .fade-leave-active {
-  transition:
-    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    backdrop-filter 0.6s ease;
+  transition: opacity 0.18s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  backdrop-filter: blur(0px);
 }
 
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;
-  backdrop-filter: blur(12px); /* 退出时带有微微的毛玻璃消散感 */
 }
 
 /* 噪点背景 */
