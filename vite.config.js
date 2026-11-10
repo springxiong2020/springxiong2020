@@ -14,10 +14,10 @@ export default defineConfig({
   root: "./",
   server: {
     proxy: {
-      "/api": {
-        target: "https://springxiong.cn",
+      "/self-hub": {
+        target: "https://api.springxiong.cn",
         changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ""),
+        // rewrite: (path) => path.replace(/^\/self-hub/, ""),
       },
     },
   },

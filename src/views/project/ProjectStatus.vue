@@ -29,7 +29,7 @@ const statusText = computed(() => {
 });
 
 const statusClass = computed(() => {
-  return isOngoing.value
+  return !isOngoing.value
     ? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
     : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400";
 });
