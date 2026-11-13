@@ -2,6 +2,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 
 export function usePaginatedList(fetchPage, { pageSize = 8 } = {}) {
   const items = ref([]);
+  const total = ref(null);
   const loading = ref(true);
   const error = ref(false);
   const hasMore = ref(true);
@@ -27,6 +28,7 @@ export function usePaginatedList(fetchPage, { pageSize = 8 } = {}) {
         throw new Error("分页数据不完整");
       }
       items.value.push(...newItems);
+      total.value = Number(data.total);
       fetchedCount += data.list.length;
       hasMore.value = fetchedCount < Number(data.total);
       nextPage += 1;
@@ -41,5 +43,5 @@ export function usePaginatedList(fetchPage, { pageSize = 8 } = {}) {
   onMounted(load);
   onBeforeUnmount(() => controller.abort());
 
-  return { items, loading, error, hasMore, load };
+  return { items, total, loading, error, hasMore, load };
 }

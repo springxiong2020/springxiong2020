@@ -22,14 +22,16 @@
       >
     </div>
     <h1 id="intro-title" class="intro-title mt-6 sm:mt-7">
-      <span class="intro-title-ink">春天熊<span class="intro-title-connector">の</span>知行录</span>
+      <span class="intro-title-ink intro-title-name">春天熊</span
+      ><span class="intro-title-connector text-slate-500 dark:text-slate-400">の</span
+      ><span class="intro-title-ink intro-title-journal">知行录</span>
     </h1>
     <p class="mt-2.5 text-lg leading-relaxed tracking-wide sm:mt-4 sm:text-base lg:text-xl">
       代码构建世界，文字安放灵魂
     </p>
     <div class="mt-5 text-sm leading-loose home-muted sm:mt-6">
       <p>
-        用 AI、Go、Java 和 Vue 构建应用，<br
+        用 AI、Go、Java、Python 和 Vue 构建应用，<br
           class="hidden lg:block"
         />也在书页、摄影与运动中，寻找代码之外的灵感。
       </p>
@@ -89,13 +91,23 @@ const avatarBroken = ref(false);
   font-weight: 800;
   line-height: 1.3;
   letter-spacing: -0.045em;
+  white-space: nowrap;
 }
 
 .intro-title-ink {
   display: inline-block;
   padding-block: 0.06em;
-  white-space: nowrap;
-  color: var(--home-accent, #2454b8);
+  color: var(--title-ink);
+}
+
+.intro-title-name {
+  --title-ink: var(--home-title-name-ink);
+  --title-gradient: var(--home-title-name-gradient);
+}
+
+.intro-title-journal {
+  --title-ink: var(--home-accent);
+  --title-gradient: var(--home-title-journal-gradient);
 }
 
 .intro-title-connector {
@@ -105,19 +117,11 @@ const avatarBroken = ref(false);
   letter-spacing: 0;
 }
 
-:global(.dark) .intro-title-ink {
-  color: var(--home-accent, #a8c7ff);
-}
-
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .intro-title-ink {
-    background-image: var(--home-title-gradient);
+    background-image: var(--title-gradient);
     background-clip: text;
     -webkit-background-clip: text;
-    color: transparent;
-  }
-
-  :global(.dark) .intro-title-ink {
     color: transparent;
   }
 }
@@ -136,7 +140,7 @@ const avatarBroken = ref(false);
 
 @media (forced-colors: active) {
   .intro-title-ink,
-  :global(.dark) .intro-title-ink {
+  .intro-title-connector {
     background-image: none;
     color: CanvasText;
   }

@@ -9,8 +9,8 @@
     :fetch-page="getMineProjectsList"
   >
     <template #loading>
-      <div class="grid gap-6 md:grid-cols-2">
-        <project-skeleton v-for="n in 2" :key="n" />
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <project-skeleton v-for="n in 3" :key="n" />
       </div>
     </template>
     <template #default="{ items: projects }">
@@ -18,22 +18,22 @@
         <h2 id="featured-title" class="mb-4 text-lg font-bold text-slate-900 dark:text-white">
           精选项目
         </h2>
-        <div class="grid items-start gap-6 md:grid-cols-2">
+        <div class="grid items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
           <project-entry
-            v-for="project in projects.slice(0, 2)"
+            v-for="project in projects.slice(0, 3)"
             :key="project.id"
             :project="project"
             featured
           />
         </div>
       </section>
-      <section v-if="projects.length > 2" class="mt-8" aria-labelledby="other-projects-title">
+      <section v-if="projects.length > 3" class="mt-8" aria-labelledby="other-projects-title">
         <h2 id="other-projects-title" class="mb-3 text-lg font-bold text-slate-900 dark:text-white">
           其余项目
         </h2>
         <div class="grid gap-4">
           <project-entry
-            v-for="project in projects.slice(2)"
+            v-for="project in projects.slice(3)"
             :key="project.id"
             :project="project"
           />

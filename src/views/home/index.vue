@@ -54,7 +54,7 @@
         <home-section
           class="home-reading home-reading-book min-w-0 rounded-3xl p-5 sm:p-6"
           title="书页之间"
-          description="读过的书，留下的句子"
+          description="读过的书，划下的句子"
           to="/books"
           more-label="读书札记"
           empty-text="还没有读完的书籍记录"
@@ -73,6 +73,7 @@
         <home-section
           class="home-reading home-reading-sentence min-w-0 rounded-3xl p-5 sm:p-6"
           title="一则诗词"
+          description="抄过的诗，心动的词句"
           to="/sentences"
           more-label="三五七言"
           :state="sections.sentences"

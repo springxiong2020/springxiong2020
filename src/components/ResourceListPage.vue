@@ -9,12 +9,17 @@
 
     <slot name="notice" />
 
-    <p class="mb-5 text-sm text-slate-500 dark:text-slate-400" role="status" aria-live="polite">
-      {{
+    <p
+      class="mb-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400"
+      role="status"
+      aria-live="polite"
+    >
+      <span>{{
         loading
           ? `正在加载${label}（已加载 ${items.length} ${unit}）…`
           : `已加载 ${items.length} ${unit}${label}`
-      }}
+      }}</span>
+      <span v-if="total !== null">共 {{ total }} {{ unit }}</span>
     </p>
 
     <div
@@ -70,5 +75,5 @@ const props = defineProps({
   fetchPage: { type: Function, required: true },
 });
 
-const { items, loading, error, hasMore, load } = usePaginatedList(props.fetchPage);
+const { items, total, loading, error, hasMore, load } = usePaginatedList(props.fetchPage);
 </script>

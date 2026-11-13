@@ -69,6 +69,7 @@ for (const [name, Page, fetchPage] of [
       await flushPromises();
       expect(wrapper.find('[role="alert"]').exists()).toBe(true);
       expect(wrapper.text()).toContain("已加载 2");
+      expect(wrapper.find('[role="status"]').text()).toContain("共 5");
 
       fetchPage.mockResolvedValueOnce({
         total: 5,
@@ -120,6 +121,7 @@ for (const [name, Page, fetchPage] of [
       await render(Page);
       expect(wrapper.find('[role="alert"]').exists()).toBe(false);
       expect(button("加载更多")).toBeUndefined();
+      expect(wrapper.find('[role="status"]').text()).toContain("共 0");
       wrapper.unmount();
       const request = deferred();
       fetchPage.mockReturnValueOnce(request.promise);
@@ -133,3 +135,20 @@ for (const [name, Page, fetchPage] of [
     });
   });
 }
+
+it("开源项目展示前三个精选项目，其余项目从第四个开始", async () => {
+  api.getMineProjectsList.mockResolvedValueOnce({
+    total: 4,
+    list: [record(1), record(2), record(3), record(4)],
+  });
+  await render(Project);
+  const featured = wrapper.find('[aria-labelledby="featured-title"]');
+  const others = wrapper.find('[aria-labelledby="other-projects-title"]');
+  expect(
+    featured.findAll("project-entry-stub").map((entry) => entry.attributes("project")),
+  ).toHaveLength(3);
+  expect(others.findAll("project-entry-stub")).toHaveLength(1);
+  expect(
+    wrapper.findAllComponents({ name: "ProjectEntry" }).map((entry) => entry.props("project").id),
+  ).toEqual([1, 2, 3, 4]);
+});
